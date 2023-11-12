@@ -2,10 +2,13 @@
 import React from 'react'
 import { useState } from 'react'
 import axios, { AxiosError } from 'axios'
+import {signIn} from 'next-auth/react'
+import {useRouter} from 'next/navigation'
 
 const Form = () => {
 
   const [error, setError] = useState("")
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -28,7 +31,7 @@ const Form = () => {
     }
 
     try {
-      const response = await axios.post('/api/auth/singup', {
+      const signupResponse = await axios.post('/api/auth/singup', {
         "fullName": formData.get('nombres'), 
         "lastName": formData.get('apellidos'),
         "email": formData.get('correo'), 
@@ -37,7 +40,17 @@ const Form = () => {
         "documentNumber": formData.get('numero_documento'), 
         "bornDate": formData.get('fecha_nacimiento')
       })
-      console.log(response.data)
+      
+      const res = await signIn('credentials', {
+        email: signupResponse.data.email,
+        password: formData.get('password'),
+        redirect: false
+      })
+
+      if (res?.ok) {
+        router.push('/')
+      }
+
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.data.message === "El usuario ya existe") {
