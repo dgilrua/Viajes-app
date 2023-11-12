@@ -5,9 +5,9 @@ import React from 'react'
 
 const HomePage = () => {
 
-  const {data: session, status} = useSession()
+  const {status} = useSession()
 
-  console.log(session, status)
+  console.log(status)
 
   return (
     <Layout>
