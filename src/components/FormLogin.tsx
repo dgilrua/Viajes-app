@@ -31,12 +31,17 @@ const FormLogin = () => {
   }
 
   return (
-    <div>
+    <div className='md:col-span-3 md:mt-44'>
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form 
+        onSubmit={handleSubmit}
+        className='w-1/2 mx-auto'
+      >
+        <h1 className='font-bold text-2xl mt-20 mb-10 uppercase'>Ingrese sus credenciales</h1>
         <div>
-          <label htmlFor="correo">Correo electrónico</label>
+        <label className='block font-semibold mb-2' htmlFor="correo">Correo electrónico</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="email"
             id="correo"
             name="correo"
@@ -45,8 +50,9 @@ const FormLogin = () => {
           />
         </div>
         <div>
-          <label htmlFor="password">Contraseña</label>
+          <label className='block font-semibold mb-2' htmlFor="password">Contraseña</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="password"
             id="password"
             name="password"
@@ -54,7 +60,7 @@ const FormLogin = () => {
             required
           />
         </div>
-        <button>Iniciar sesión</button>
+        <button className='py-3 text-white font-bold uppercase rounded-md w-full bg-secondary mt-5 hover:bg-secondary_hover transition-all'>Iniciar sesión</button>
       </form>
     </div>
   )

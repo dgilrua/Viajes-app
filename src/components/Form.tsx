@@ -66,15 +66,20 @@ const Form = () => {
   } 
 
   return (
-    <div className="md:col-span-3">
+    <div className="md:col-span-3 mb-10">
       {
         error && 
         <p className="text-red-500">{error}</p>
       }
-      <form  onSubmit={handleSubmit}>
+      <form  
+        onSubmit={handleSubmit}
+        className='w-1/2 my-0 mx-auto'
+      >
+        <h1 className='font-bold text-center text-2xl my-10'>INGRESE SUS DATOS PERSONALES</h1>
         <div>
-          <label htmlFor="nombres">Nombres</label>
+          <label className='block font-semibold mb-2' htmlFor="nombres">Nombres</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="text"
             name="nombres"
             id="nombres"
@@ -84,8 +89,9 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="apellidos">Apellidos</label>
+          <label className='block font-semibold mb-2' htmlFor="apellidos">Apellidos</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="text"
             id="apellidos"
             name="apellidos"
@@ -95,8 +101,9 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="correo">Correo electrónico</label>
+          <label className='block font-semibold mb-2' htmlFor="correo">Correo electrónico</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="email"
             id="correo"
             name="correo"
@@ -106,8 +113,9 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="confirmar_correo">Confirme su correo electrónico</label>
+          <label className='block font-semibold mb-2' htmlFor="confirmar_correo">Confirme su correo electrónico</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="email"
             id="confirmar_correo"
             name="correo_confirm"
@@ -117,8 +125,9 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="password">Contraseña</label>
+          <label className='block font-semibold mb-2' htmlFor="password">Contraseña</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="password"
             id="password"
             name="password"
@@ -128,8 +137,9 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="confirmar_password">Repetir contraseña</label>
+          <label className='block font-semibold mb-2' htmlFor="confirmar_password">Repetir contraseña</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="password"
             id="confirmar_password"
             name="password_confirm"
@@ -139,8 +149,15 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="tipo_documento">Tipo de documento</label>
-          <select name="tipo_documento" defaultValue={""} id="tipo_documento" required>
+          <label className='block font-semibold mb-2' htmlFor="tipo_documento">Tipo de documento</label>
+          <select 
+            name="tipo_documento" 
+            id="tipo_documento" 
+            required
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
+            placeholder='Seleccione su tipo de documento'
+            defaultValue={""}
+          >
             <option value="" disabled>
               -- Selecciona una opcion --
             </option>
@@ -150,8 +167,9 @@ const Form = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="numero_documento">Número de documento</label>
+          <label className='block font-semibold mb-2' htmlFor="numero_documento">Número de documento</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             type="number"
             id="numero_documento"
             min={0} 
@@ -162,15 +180,18 @@ const Form = () => {
         </div>
 
         <div>
-          <label htmlFor="fecha_nacimiento">Fecha de nacimiento</label>
+          <label className='block font-semibold mb-2' htmlFor="fecha_nacimiento">Fecha de nacimiento</label>
           <input 
+            className='border-2 border-gray-200 w-full p-3 rounded-sm mb-5 text-black'
             id="fecha_nacimiento"
-            type="date"
+            type="text"
             name="fecha_nacimiento"
+            placeholder='DD/MM/AAAA'
+            onFocus={(e) => (e.currentTarget.type = "date")}
             required
           />
         </div>
-        <button>registrarme</button>
+        <button className='py-3 text-white font-bold uppercase rounded-md w-full bg-secondary mt-5 hover:bg-secondary_hover transition-all'>registrarme</button>
       </form>
     </div>
   );
