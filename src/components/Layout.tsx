@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import logo from '../../public/logo.svg'
 import { usePathname } from 'next/navigation'
-import {useContext} from 'react'
+import {useContext, useEffect} from 'react'
 import { ManejoContext } from '@/context/manejoContext'
 import {useRouter} from 'next/navigation'
 import usuario_logo from '../../public/usuario_logo.svg'
@@ -14,6 +14,15 @@ interface MyProps {
 }
 
 const Layout: React.FC<MyProps> = ({children}) => {
+
+  useEffect(() => {
+    const logged = sessionStorage.getItem('logged')
+    const user = sessionStorage.getItem('user')
+    if (logged && user) {
+      setLogged(logged)
+      setUser(JSON.parse(user))
+    }
+  }, [])
 
   const {logged, setLogged, setUser, user} = useContext(ManejoContext)
   const router = useRouter()
@@ -36,6 +45,8 @@ const Layout: React.FC<MyProps> = ({children}) => {
             ) : (
               <button onClick={() => {
                 setLogged("unauthenticated")
+                sessionStorage.setItem('logged', "unauthenticated")
+                sessionStorage.setItem('user', JSON.stringify({}))
                 setUser({})
                 router.push('/')
               }}>

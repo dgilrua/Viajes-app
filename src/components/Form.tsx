@@ -44,8 +44,10 @@ const Form = () => {
       
       setLogged("authenticated")
       setUser(signupResponse.data)
+      sessionStorage.setItem('user', JSON.stringify(signupResponse.data))
+      sessionStorage.setItem('logged', "authenticated")
       router.push('/')
-      
+
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.data.message === "El usuario ya existe") {
