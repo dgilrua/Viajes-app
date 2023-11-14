@@ -20,6 +20,8 @@ const handler = NextAuth({
         const passwordMatch = await bcrypt.compare(credentials!.password, userFound.password)
         if (!passwordMatch) throw new Error('Credenciales invalidas')
 
+        console.log(userFound)
+
         return userFound;
       }
     })
