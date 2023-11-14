@@ -17,8 +17,6 @@ const FormLogin = () => {
       redirect: false
     })
 
-    console.log(response)
-
     if (!response?.ok) {
       setError("Las credenciales son incorrectas")
       setTimeout(() => {
