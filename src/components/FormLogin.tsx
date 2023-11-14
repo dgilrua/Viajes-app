@@ -1,33 +1,36 @@
 "use client"
-import {signIn} from 'next-auth/react'
 import {useRouter} from 'next/navigation'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import axios, {AxiosError} from 'axios'
+import { ManejoContext } from '@/context/manejoContext'
 
 const FormLogin = () => {
 
   const router = useRouter()
   const [error, setError] = useState("")
+  const {logged, setLogged, setUser, user} = useContext(ManejoContext)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
 
-    const response = await signIn('credentials', {
-      email: formData.get('correo'),
-      password: formData.get('password'),
-      redirect: false
-    })
-
-    if (!response?.ok) {
-      setError("Las credenciales son incorrectas")
-      setTimeout(() => {
-        setError("")
-      }, 3000)
-      return
-    }
-
-    if (response?.ok) {
+    try {
+      const signinResponse = await axios.post('/api/auth/login', {
+        "email": formData.get('correo'), 
+        "password": formData.get('password'), 
+      })
+      setLogged("authenticated")
+      setUser(signinResponse.data)
       router.push('/')
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error.response?.data.message)
+        setTimeout(() => {
+          setError("")
+        }, 3000)
+      }
     }
+    
   }
 
   return (

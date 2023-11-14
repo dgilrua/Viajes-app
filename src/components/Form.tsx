@@ -1,14 +1,15 @@
 "use client"
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios, { AxiosError } from 'axios'
-import {signIn} from 'next-auth/react'
 import {useRouter} from 'next/navigation'
+import { ManejoContext } from '@/context/manejoContext'
 
 const Form = () => {
 
   const [error, setError] = useState("")
   const router = useRouter()
+  const {logged, setLogged, setUser, user} = useContext(ManejoContext)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -41,15 +42,9 @@ const Form = () => {
         "bornDate": formData.get('fecha_nacimiento')
       })
       
-      const res = await signIn('credentials', {
-        email: signupResponse.data.email,
-        password: formData.get('password'),
-        redirect: false
-      })
-
-      if (res?.ok) {
-        router.push('/')
-      }
+      setLogged("authenticated")
+      setUser(signupResponse.data)
+      router.push('/')
 
     } catch (error) {
       if (error instanceof AxiosError) {
