@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Providers from './Providers'
 import {ManejoProvider} from '@/context/manejoContext'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,9 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ManejoProvider>
-          <Providers>
             {children}
-          </Providers>
         </ManejoProvider>
       </body>
     </html>
