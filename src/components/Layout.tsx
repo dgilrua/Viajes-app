@@ -18,7 +18,7 @@ const Layout: React.FC<MyProps> = ({children}) => {
   const {logged, setLogged, setUser, user} = useContext(ManejoContext)
   const router = useRouter()
   const pathname = usePathname()
-
+  sessionStorage.getItem('logged') && setLogged(sessionStorage.getItem('logged'))
   return (
     <>
       <header className=' md:h-36 md:flex w-full justify-between pb-10 pt-0 px-10 md:p-10 items-center bg-primary'>
@@ -38,6 +38,7 @@ const Layout: React.FC<MyProps> = ({children}) => {
               <button onClick={() => {
                 setLogged("unauthenticated")
                 setUser({})
+                sessionStorage.setItem('logged', 'unauthenticated')
                 router.push('/')
               }}>
                 <Image src={usuario_logo} alt='usuario_logo' width={65} height={65}/>

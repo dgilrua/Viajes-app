@@ -21,6 +21,7 @@ const FormLogin = () => {
       setLogged("authenticated")
       setUser(signinResponse.data)
       router.push('/')
+      sessionStorage.setItem('logged', 'authenticated')
 
     } catch (error) {
       if (error instanceof AxiosError) {
