@@ -8,9 +8,21 @@ export const ManejoProvider = ({children}) => {
 
   const [logged, setLogged] = useState("unauthenticated")
   const [user, setUser] = useState()
+  const [fechaFiltro, setFechaFiltro] = useState("")
+  const [precioFiltro, setPrecioFiltro] = useState()
 
   return (
-    <ManejoContext.Provider value={{logged, setLogged, setUser, user}}>
+    <ManejoContext.Provider 
+      value={{
+        logged, 
+        setLogged, 
+        user, 
+        setUser, 
+        precioFiltro, 
+        setPrecioFiltro,
+        fechaFiltro,
+        setFechaFiltro
+    }}>
       {children}
     </ManejoContext.Provider>
   )

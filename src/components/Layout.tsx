@@ -56,7 +56,7 @@ const Layout: React.FC<MyProps> = ({children}) => {
           </nav>
         </div>
       </header>
-      <main>
+      <main className='bg-gray-100'>
         {children}
       </main>
     </>
