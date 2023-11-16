@@ -11,7 +11,7 @@ interface Props  {
 
 const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_puesto, imagen}) => {
   return (
-    <div className='bg-white flex flex-col w-96 rounded-md'>
+    <li className='bg-white flex flex-col w-96 rounded-md shadow-md mt-5 md:mt-0 mx-auto'>
       <div>
         <Image src={`/${imagen}`} alt={`imagen ${imagen}`} width={400} height={400}
           className='inline-block object-cover w-96 h-96 rounded-md'
@@ -27,7 +27,7 @@ const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_pues
           <button className='px-6 bg-primary text-white font-semibold py-2 rounded-md'>Ver detalle</button>
         </div>
       </div>
-    </div>
+    </li>
   )
 }
 

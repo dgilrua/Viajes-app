@@ -42,7 +42,7 @@ const FormLogin = () => {
         onSubmit={handleSubmit}
         className='w-1/2 mx-auto'
       >
-        <h1 className='font-bold text-2xl mt-20 mb-10 uppercase'>Ingrese sus credenciales</h1>
+        <h1 className='font-bold text-2xl pt-20 mb-10 uppercase'>Ingrese sus credenciales</h1>
         <div>
         <label className='block font-semibold mb-2' htmlFor="correo">Correo electrónico</label>
           <input 

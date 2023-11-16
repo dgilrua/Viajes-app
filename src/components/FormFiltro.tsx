@@ -1,5 +1,11 @@
-import {useContext} from 'react'
+import {ReactEventHandler, useContext} from 'react'
 import { ManejoContext } from '@/context/manejoContext'
+import { useState } from 'react'
+import Image from 'next/image'
+import calendar from '../../public/calendar.svg'
+import arrows from '../../public/arrows.svg'
+import lupa from '../../public/lupa.svg'
+import return_icon from '../../public/return.svg'
 
 interface Props {
   datos: {
@@ -15,24 +21,75 @@ const FormFiltro: React.FC<Props> = ({datos}) => {
 
   const fechas = datos.map((viaje) => viaje.fecha_viaje)
   const precio = datos.map((viaje) => viaje.precio_puesto)
+  const [icon, setIcon] = useState("search")
   const precioSinDuplicados = precio.filter((valor, indice) => precio.indexOf(valor) === indice)
   precioSinDuplicados.sort((a, b) => a - b)
 
-  const {setFechaFiltro, fechaFiltro, setPrecioFiltro, precioFiltro} = useContext(ManejoContext)
+  const {datosFiltrados, setFechaFiltro, fechaFiltro, setPrecioFiltro, precioFiltro} = useContext(ManejoContext)
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    datosFiltrados(fechaFiltro, precioFiltro)
+  }
+
+  const handleIcon = () => {
+    if (fechaFiltro != 'todas_fechas' || precioFiltro != 'todos_precios') {
+      setIcon("return")
+    } else {
+      setIcon("search")
+    }
+  }
 
   return (
-    <form>
-      <label htmlFor='fecha'>Fecha</label>
-      <select name="fecha" id='fecha' value={fechaFiltro} onChange={(e) => {setFechaFiltro(e.target.value)}}>
-        {fechas.map((fecha) => (
-          <option key={crypto.randomUUID()} value={fecha}>{fecha}</option>
-        ))}
-      </select>
-      <select name="fecha" id='fecha' value={precioFiltro} onChange={(e) => {setPrecioFiltro(e.target.value)}}>
-        {precioSinDuplicados.map((precio) => (
-          <option key={crypto.randomUUID()} value={precio}>{precio}</option>
-        ))}
-      </select>
+    <form className='flex md:w-3/6 bg-white gap-10 rounded-[3rem] shadow-md px-10 py-7 mb-10' onSubmit={handleSubmit}>
+      <div className='flex gap-10'>
+        <div className='flex items-center justify-center'>
+          <Image src={calendar} alt='img_calendar' width={40} height={40}/>
+        </div>
+        <div className='flex flex-col items-center font-semibold'>
+          <label htmlFor='fecha'>Fecha</label>
+          <select 
+            className='appearance-none cursor-pointer form_select' 
+            name="fecha" 
+            id='fecha' 
+            onChange={(e) => setFechaFiltro(e.currentTarget.value)}
+            value={fechaFiltro}
+          >
+            <option value="todas_fechas">Todas las fechas</option>
+            {fechas.map((fecha) => (
+              <option key={crypto.randomUUID()} value={fecha}>{fecha}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className='flex gap-10'>
+        <div className='flex items-center justify-center'>
+          <Image src={arrows} alt='imagen arrow' width={40} height={40}/>
+        </div>
+        <div className='flex flex-col items-center font-semibold'>
+          <label htmlFor="precio">Precio</label>
+          <select  
+            className='appearance-none cursor-pointer form_select ' 
+            name="precio" 
+            id='precio' 
+            onChange={(e) => setPrecioFiltro(e.currentTarget.value)}
+            value={precioFiltro}
+          >
+            <option value="todos_precios">Todos los precios</option>
+            {precioSinDuplicados.map((precio) => (
+              <option key={crypto.randomUUID()} value={precio}>{precio}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <button onClick={handleIcon}>
+        {
+          (icon === 'return' && (fechaFiltro != 'todas_fechas' || precioFiltro != 'todos_precios')) ?
+          <Image src={lupa} alt='imagen lupa' width={40} height={40}/> :
+          <Image src={return_icon} alt='imagen return' width={40} height={40}/> 
+
+        }
+      </button>
     </form>
   )
 }

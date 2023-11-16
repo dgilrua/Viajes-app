@@ -63,7 +63,7 @@ const Form = () => {
   } 
 
   return (
-    <div className="md:col-span-3 mb-10">
+    <div className="md:col-span-3 py-10">
       {
         error && 
         <p className="text-red-500">{error}</p>
@@ -72,7 +72,7 @@ const Form = () => {
         onSubmit={handleSubmit}
         className='w-1/2 my-0 mx-auto'
       >
-        <h1 className='font-bold text-center text-2xl my-10'>INGRESE SUS DATOS PERSONALES</h1>
+        <h1 className='font-bold text-center text-2xl mb-10'>INGRESE SUS DATOS PERSONALES</h1>
         <div>
           <label className='block font-semibold mb-2' htmlFor="nombres">Nombres</label>
           <input 
