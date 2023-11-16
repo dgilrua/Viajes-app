@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.select_form {
+  border: 2px solid #E8E8E8;
+}

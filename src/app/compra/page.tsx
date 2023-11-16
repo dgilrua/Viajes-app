@@ -1,11 +1,13 @@
 "use client"
 import Layout from '@/components/Layout'
 import { ManejoContext } from '@/context/manejoContext'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import Image from 'next/image'
 import sillas_imagen from '../../../public/sillas_imagen.png'
+import silla_ocupada from '../../../public/silla_ocupada.png'
+import silla_disponible from '../../../public/silla_disponible.png'
 
 const CompraPage = () => {
 
@@ -21,14 +23,27 @@ const CompraPage = () => {
     puestos_disponibles,
     placa_chiva} = informacionViaje
   const router = useRouter()
+  const [cantidadSillas, setCantidadSillas] = useState(1)
+
+  const manejoCantidadSillas = (e: React.ChangeEvent<HTMLInputElement>) => { 
+    if (Number(e.target.value) > puestos_disponibles) {
+      setCantidadSillas(puestos_disponibles)
+  
+    } else if (Number(e.target.value) < 1) {
+      setCantidadSillas(1)
+      
+    } else {
+      setCantidadSillas(Number(e.target.value))
+    }
+  }
 
   return (
     <Layout>
       <section className='py-10'> 
-        <div className='w-2/3 mx-auto p-10 bg-contenedor rounded-xl shadow-md'>
+        <div className='w-[98%] md:w-2/3 mx-auto p-10 bg-contenedor rounded-xl shadow-md'>
           <div>
             <h1 className='text-3xl font-bold'>{destino}</h1>
-            <div className='w-1/3 mt-10'>
+            <div className='md:w-1/3 mt-10'>
               <div className='mt-3 flex justify-between items-center'>
                 <p className='font-bold text-lg'>Fecha</p>
                 <p className='text-text font-bold'>{fecha_viaje}</p>
@@ -48,23 +63,52 @@ const CompraPage = () => {
                   min={1} 
                   max={puestos_disponibles}
                   className='bg-contenedor text-text text-right font-bold'
-                  value={1}
+                  value={cantidadSillas}
+                  onChange={manejoCantidadSillas}
                 />
               </div>
             </div>
-            <div className='grid grid-cols-5 mt-10'>
+            <div className='md:grid md:grid-cols-5 mt-10'>
               <div className='bg-contenedor_sillas rounded-xl p-2'>
                 <Image src={sillas_imagen} className='mx-auto' alt='sillas' width={200} height={200} />
               </div>
-              <div className='col-span-4'>
-
-              </div>
+              <div className='col-span-4 px-10'>
+                <div className='md:grid md:grid-cols-3'>
+                  <div className='mt-10 md:mt-0'>
+                    <div className='flex justify-around items-center'>
+                      <Image src={silla_ocupada} alt='silla ocupada' width={50} height={50} />
+                      <p className='font-bold text-xl text-text'>Silla ocupada</p>
+                    </div>
+                    <div className='flex justify-around items-center mt-10'>
+                      <Image src={silla_disponible} alt='silla ocupada' width={50} height={50} />
+                      <p className='font-bold text-xl text-text'>Silla disponible</p>
+                    </div>
+                  </div>
+                  <div className='md:px-10 col-span-2'>
+                    <h3 className='font-bold text-3xl mb-10 mt-10 md:mt-0'>Sillas seleccionadas</h3>
+                    <div className='flex justify-between'>
+                      <p className='text-2xl font-bold'>Cantidad</p>
+                      <p className='text-2xl font-bold text-text mr-0 md:mr-32'>{cantidadSillas}</p>
+                    </div>
+                    <div className='flex justify-between mt-5'>
+                      <p className='text-2xl font-bold'>Precio</p>
+                      <p className='text-2xl font-bold text-text mr-0 md:mr-32'>$ {precio_puesto*cantidadSillas}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className='mt-10 font-bold text-lg md:w-1/2 md:ml-20 ml-0'>
+                  <p>Si el viaje lo realizará junto a un menor de edad, debe agregar un permiso firmado por los acudientes del menor, donde informe que el menor está autorizado para hacer el viaje</p>
+                  <button 
+                    className='px-7 py-3 h-2/3 rounded-md font-bold text-xl text-white bg-secondary mt-10'
+                  >Adjuntar archivos</button>
+                </div>
+              </div>  
             </div>
-            <div className='flex justify-between mt-10'>
-              <div className='w-1/2'>
+            <div className='md:flex md:justify-between mt-10'>
+              <div className='md:w-1/2'>
                 <p className='font-bold text-xl mb-5'>Elegir metodo de pago</p>
                 <select name="" id=""
-                  className='border-red-950 px-2 py-3 text-text w-2/3'
+                  className='select_form px-2 py-3 text-text w-full md:w-2/3'
                 >
                   <option value="">Seleccionar medio de pago</option>
                   <option value="">Nequi</option>
@@ -72,14 +116,14 @@ const CompraPage = () => {
                   <option value="">Bancolombia</option>
                 </select>
               </div>
-              <div className='flex gap-10 items-end'>
+              <div className='flex gap-10 items-end mt-10 md:mt-0'>
                 <button 
                   className='px-7 py-3 h-2/3 rounded-md font-bold text-xl text-white bg-primary'
+                  onClick={() => router.back()}
                 >Cancelar</button>
                 <button 
                   className='px-7 py-3 h-2/3 rounded-md font-bold text-xl text-white bg-secondary'
-                  onClick={() => router.push('/compra')}
-                >Confirmar</button>
+                >Confirmar compra</button>
               </div>
             </div>
           </div>
