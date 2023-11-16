@@ -17,7 +17,10 @@ const config: Config = {
         primary: '#091600',
         secondary: '#62750D',
         secondary_hover: "#B0C5A1",
-        secondary_active: "#506D33"
+        secondary_active: "#506D33",
+        text: "#A8A8A8",
+        contenedor: "#E8E8E8",
+        contenedor_sillas: "#D9D9D9"
       }
     },
   },

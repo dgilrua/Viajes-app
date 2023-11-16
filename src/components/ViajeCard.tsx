@@ -13,12 +13,12 @@ interface Props  {
   imagen: string,
   hora_salida: string,
   hora_llegada: string,
-  origen: string,
+  lugar_salida: string,
   puestos_disponibles: number
   placa_chiva: string
 }
 
-const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_puesto, imagen, hora_salida, hora_llegada, origen, puestos_disponibles, placa_chiva}) => {
+const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_puesto, imagen, hora_salida, hora_llegada, lugar_salida, puestos_disponibles, placa_chiva}) => {
 
   const {setInformacionViaje} = useContext(ManejoContext)
 
@@ -33,7 +33,7 @@ const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_pues
       imagen,
       hora_salida,
       hora_llegada,
-      origen,
+      lugar_salida,
       puestos_disponibles,
       placa_chiva
     })

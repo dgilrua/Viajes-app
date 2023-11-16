@@ -16,7 +16,7 @@ interface viaje {
   imagen: string,
   hora_salida: string,
   hora_llegada: string,
-  origen: string,
+  lugar_salida: string,
   puestos_disponibles: number
   placa_chiva: string
 }
@@ -48,7 +48,7 @@ const HomePage = () => {
                     fecha_viaje={viaje.fecha_viaje}
                     precio_puesto={viaje.precio_puesto}
                     imagen={viaje.imagen}
-                    origen={viaje.origen}
+                    lugar_salida={viaje.lugar_salida}
                     hora_salida={viaje.hora_salida}
                     hora_llegada={viaje.hora_llegada}
                     puestos_disponibles={viaje.puestos_disponibles}
