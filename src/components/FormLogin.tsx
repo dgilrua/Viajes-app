@@ -36,13 +36,13 @@ const FormLogin = () => {
   }
 
   return (
-    <div className='md:col-span-3 md:mt-44'>
+    <div className='md:col-span-3 md:mt-44 p-10'>
       {error && <p>{error}</p>}
       <form 
         onSubmit={handleSubmit}
-        className='w-1/2 mx-auto'
+        className='w-[95%] md:w-1/2 mx-auto bg-white p-10 pt-0 rounded-md shadow-md'
       >
-        <h1 className='font-bold text-2xl pt-20 mb-10 uppercase'>Ingrese sus credenciales</h1>
+        <h1 className='font-bold text-2xl pt-14 mb-10 uppercase'>Ingrese sus credenciales</h1>
         <div>
         <label className='block font-semibold mb-2' htmlFor="correo">Correo electrónico</label>
           <input 

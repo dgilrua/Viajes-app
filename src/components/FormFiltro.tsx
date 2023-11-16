@@ -21,7 +21,6 @@ const FormFiltro: React.FC<Props> = ({datos}) => {
 
   const fechas = datos.map((viaje) => viaje.fecha_viaje)
   const precio = datos.map((viaje) => viaje.precio_puesto)
-  const [icon, setIcon] = useState("search")
   const precioSinDuplicados = precio.filter((valor, indice) => precio.indexOf(valor) === indice)
   precioSinDuplicados.sort((a, b) => a - b)
 
@@ -32,16 +31,9 @@ const FormFiltro: React.FC<Props> = ({datos}) => {
     datosFiltrados(fechaFiltro, precioFiltro)
   }
 
-  const handleIcon = () => {
-    if (fechaFiltro != 'todas_fechas' || precioFiltro != 'todos_precios') {
-      setIcon("return")
-    } else {
-      setIcon("search")
-    }
-  }
 
   return (
-    <form className='flex md:w-3/6 bg-white gap-10 rounded-[3rem] shadow-md px-10 py-7 mb-10' onSubmit={handleSubmit}>
+    <form className='flex flex-col mx-auto sm:mx-0 items-center px-2 w-1/2 sm:w-full sm:flex-row md:w-3/6 bg-white gap-10 rounded-[3rem] shadow-md sm:px-10 py-7 mb-10' onSubmit={handleSubmit}>
       <div className='flex gap-10'>
         <div className='flex items-center justify-center'>
           <Image src={calendar} alt='img_calendar' width={40} height={40}/>
@@ -49,7 +41,7 @@ const FormFiltro: React.FC<Props> = ({datos}) => {
         <div className='flex flex-col items-center font-semibold'>
           <label htmlFor='fecha'>Fecha</label>
           <select 
-            className='appearance-none cursor-pointer form_select' 
+            className='appearance-none text-center cursor-pointer form_select' 
             name="fecha" 
             id='fecha' 
             onChange={(e) => setFechaFiltro(e.currentTarget.value)}
@@ -69,7 +61,7 @@ const FormFiltro: React.FC<Props> = ({datos}) => {
         <div className='flex flex-col items-center font-semibold'>
           <label htmlFor="precio">Precio</label>
           <select  
-            className='appearance-none cursor-pointer form_select ' 
+            className='appearance-none text-center cursor-pointer form_select ' 
             name="precio" 
             id='precio' 
             onChange={(e) => setPrecioFiltro(e.currentTarget.value)}
@@ -82,13 +74,8 @@ const FormFiltro: React.FC<Props> = ({datos}) => {
           </select>
         </div>
       </div>
-      <button onClick={handleIcon}>
-        {
-          (icon === 'return' && (fechaFiltro != 'todas_fechas' || precioFiltro != 'todos_precios')) ?
-          <Image src={lupa} alt='imagen lupa' width={40} height={40}/> :
-          <Image src={return_icon} alt='imagen return' width={40} height={40}/> 
-
-        }
+      <button>
+        <Image src={lupa} alt='imagen return' width={40} height={40}/> 
       </button>
     </form>
   )

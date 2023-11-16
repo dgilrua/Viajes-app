@@ -1,11 +1,11 @@
 import React from 'react'
 import Layout from '@/components/Layout'
-const page = () => {
+const HistorialPage = () => {
   return (
     <Layout>
-      <div>page</div>
+      <div>HistorialPage</div>
     </Layout>
   )
 }
 
-export default page
+export default HistorialPage

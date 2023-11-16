@@ -70,7 +70,7 @@ const Form = () => {
       }
       <form  
         onSubmit={handleSubmit}
-        className='w-1/2 my-0 mx-auto'
+        className='w-[95%] md:w-2/3 my-0 mx-auto bg-white p-10 rounded-md shadow-md'
       >
         <h1 className='font-bold text-center text-2xl mb-10'>INGRESE SUS DATOS PERSONALES</h1>
         <div>

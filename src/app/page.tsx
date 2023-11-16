@@ -6,13 +6,19 @@ import {useState, useContext, useEffect} from 'react'
 import { ManejoContext } from '@/context/manejoContext'
 import ViajeCard from '@/components/ViajeCard'
 import FormFiltro from '@/components/FormFiltro'
+import {motion} from 'framer-motion'
 
 interface viaje {
   id_viaje: string,
   destino: string,
   fecha_viaje: string,
   precio_puesto: number,
-  imagen: string
+  imagen: string,
+  hora_salida: string,
+  hora_llegada: string,
+  origen: string,
+  puestos_disponibles: number
+  placa_chiva: string
 }
 
 const HomePage = () => {
@@ -28,18 +34,29 @@ const HomePage = () => {
             <FormFiltro datos={Paseos}/>
           </div>
           <div>
-            <ul className='md:grid md:grid-cols-3 gap-7 p-10'>
-              {datos.map((viaje: viaje) => (
-                <ViajeCard 
-                  key={viaje.id_viaje}
-                  id_viaje={viaje.id_viaje}
-                  destino={viaje.destino}
-                  fecha_viaje={viaje.fecha_viaje}
-                  precio_puesto={viaje.precio_puesto}
-                  imagen={viaje.imagen}
-                />
-              ))}
-            </ul>
+            {
+              Object.keys(datos).length === 0 ?
+              <div className='pt-10 pb-20 sm:pb-44 md:pb-[29rem]'>
+                <h1 className='text-4xl font-bold uppercase text-center text-secondary'>No hay viajes disponibles con estos parametros</h1>
+              </div>:
+              <motion.ul variants={{hidden: {opacity: 0}}} className='md:grid md:grid-cols-3 gap-7 p-10'>
+                {datos.map((viaje: viaje) => (
+                  <ViajeCard 
+                    key={viaje.id_viaje}
+                    id_viaje={viaje.id_viaje}
+                    destino={viaje.destino}
+                    fecha_viaje={viaje.fecha_viaje}
+                    precio_puesto={viaje.precio_puesto}
+                    imagen={viaje.imagen}
+                    origen={viaje.origen}
+                    hora_salida={viaje.hora_salida}
+                    hora_llegada={viaje.hora_llegada}
+                    puestos_disponibles={viaje.puestos_disponibles}
+                    placa_chiva={viaje.placa_chiva}
+                  />
+                ))}
+              </motion.ul>
+            }
           </div>
         </section>
       </>
