@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import {motion} from 'framer-motion'
 import { ManejoContext } from '@/context/manejoContext'
 import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
@@ -41,9 +40,8 @@ const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_pues
   }
 
   return (
-    <motion.li 
+    <li 
       className='bg-white flex flex-col w-96 rounded-md shadow-md mt-5 md:mt-0 mx-auto'
-      variants={{hidden: {x: -10, opacity: 0}}}
     >
       <div>
         <Image src={`/${imagen}`} alt={`imagen ${imagen}`} width={400} height={400}
@@ -63,7 +61,7 @@ const ViajeCard: React.FC<Props> = ({id_viaje, destino, fecha_viaje, precio_pues
           >Ver detalle</button>
         </div>
       </div>
-    </motion.li>
+    </li>
   )
 }
 

@@ -11,7 +11,7 @@ import silla_disponible from '../../../public/silla_disponible.png'
 
 const CompraPage = () => {
 
-  const {informacionViaje, logged} = useContext(ManejoContext)
+  const {informacionViaje, logged, setPaseosComprados, paseosComprados} = useContext(ManejoContext)
   const {id_viaje,
     destino,
     fecha_viaje,
@@ -35,6 +35,12 @@ const CompraPage = () => {
     } else {
       setCantidadSillas(Number(e.target.value))
     }
+  }
+
+  const handleComprar = () => {
+    const datos = {imagen, destino, fecha_viaje, estado: "compra", id: crypto.randomUUID()}
+    setPaseosComprados([datos, ...paseosComprados])
+    sessionStorage.setItem('datos', JSON.stringify(paseosComprados))
   }
 
   return (
@@ -123,6 +129,7 @@ const CompraPage = () => {
                 >Cancelar</button>
                 <button 
                   className='px-7 py-3 h-2/3 rounded-md font-bold text-xl text-white bg-secondary'
+                  onClick={handleComprar}
                 >Confirmar compra</button>
               </div>
             </div>

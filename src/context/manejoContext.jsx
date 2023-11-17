@@ -13,6 +13,7 @@ export const ManejoProvider = ({children}) => {
   const [fechaFiltro, setFechaFiltro] = useState("todas_fechas")
   const [precioFiltro, setPrecioFiltro] = useState("todos_precios")
   const [informacionViaje, setInformacionViaje] = useState({})
+  const [paseosComprados, setPaseosComprados] = useState([])
 
   const datosFiltrados = (fecha, precio) => {
     const datosFiltrados = Paseos.filter((item) => {
@@ -43,7 +44,9 @@ export const ManejoProvider = ({children}) => {
         datosFiltrados,
         datos,
         setInformacionViaje,
-        informacionViaje
+        informacionViaje,
+        setPaseosComprados,
+        paseosComprados
     }}>
       {children}
     </ManejoContext.Provider>
