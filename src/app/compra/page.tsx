@@ -40,12 +40,9 @@ const CompraPage = () => {
   const handleComprar = () => {
     const datos = {imagen, destino, fecha_viaje, estado: "compra", id: crypto.randomUUID()}
     setPaseosComprados([datos, ...JSON.parse(localStorage.getItem('paseosComprados') || '[datos]')])
+    localStorage.setItem('paseosComprados', JSON.stringify(paseosComprados))
     router.push('/')
   }
-
-  useEffect(() => {
-    localStorage.setItem('paseosComprados', JSON.stringify(paseosComprados))
-  }, [paseosComprados])
 
   return (
     <Layout>
