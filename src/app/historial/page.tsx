@@ -6,9 +6,12 @@ import { useContext } from 'react'
 import Image from 'next/image'
 const HistorialPage = () => {
 
-  //const {paseosComprados} = useContext(ManejoContext)
+  const {paseosComprados, setPaseosComprados} = useContext(ManejoContext)
 
-  const paseosComprados = JSON.parse(localStorage.getItem('paseosComprados') || '[]')
+  useEffect(() => {
+    const paseosCompradosLocal = JSON.parse(localStorage.getItem('paseosComprados') || '[]')
+    setPaseosComprados(paseosCompradosLocal)
+  }, [])
 
   return (
     <Layout>
