@@ -1,7 +1,7 @@
 "use client"
 import Layout from '@/components/Layout'
 import { ManejoContext } from '@/context/manejoContext'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import Image from 'next/image'
@@ -39,9 +39,13 @@ const CompraPage = () => {
 
   const handleComprar = () => {
     const datos = {imagen, destino, fecha_viaje, estado: "compra", id: crypto.randomUUID()}
-    setPaseosComprados([datos, ...paseosComprados])
-    sessionStorage.setItem('datos', JSON.stringify(paseosComprados))
+    setPaseosComprados([datos, ...JSON.parse(localStorage.getItem('paseosComprados') || '[datos]')])
+    router.push('/')
   }
+
+  useEffect(() => {
+    localStorage.setItem('paseosComprados', JSON.stringify(paseosComprados))
+  }, [paseosComprados])
 
   return (
     <Layout>

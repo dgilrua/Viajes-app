@@ -6,9 +6,9 @@ import { useContext } from 'react'
 import Image from 'next/image'
 const HistorialPage = () => {
 
-  const {paseosComprados} = useContext(ManejoContext)
+  //const {paseosComprados} = useContext(ManejoContext)
 
-  console.log(paseosComprados)
+  const paseosComprados = JSON.parse(localStorage.getItem('paseosComprados') || '[]')
 
   return (
     <Layout>

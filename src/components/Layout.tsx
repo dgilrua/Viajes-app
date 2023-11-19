@@ -47,7 +47,7 @@ const Layout: React.FC<MyProps> = ({children}) => {
                 setLogged("unauthenticated")
                 sessionStorage.setItem('logged', "unauthenticated")
                 sessionStorage.setItem('user', JSON.stringify({}))
-                sessionStorage.setItem('datos', JSON.stringify([]))
+                localStorage.setItem('paseosComprados', JSON.stringify([]))
                 setUser({})
                 router.push('/')
               }}>
