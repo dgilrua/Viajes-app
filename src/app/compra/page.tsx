@@ -11,7 +11,7 @@ import silla_disponible from '../../../public/silla_disponible.png'
 
 const CompraPage = () => {
 
-  const {informacionViaje, logged, setPaseosComprados, paseosComprados} = useContext(ManejoContext)
+  const {informacionViaje} = useContext(ManejoContext)
   const {id_viaje,
     destino,
     fecha_viaje,
@@ -24,6 +24,7 @@ const CompraPage = () => {
     placa_chiva} = informacionViaje
   const router = useRouter()
   const [cantidadSillas, setCantidadSillas] = useState(1)
+  const [aviso, setAviso] = useState("")
 
   const manejoCantidadSillas = (e: React.ChangeEvent<HTMLInputElement>) => { 
     if (Number(e.target.value) > puestos_disponibles) {
@@ -40,7 +41,11 @@ const CompraPage = () => {
   const handleComprar = () => {
     const datos = {imagen, destino, fecha_viaje, estado: "compra", id: crypto.randomUUID()}
     localStorage.setItem('paseosComprados', JSON.stringify([datos, ...JSON.parse(localStorage.getItem('paseosComprados') || '[datos]')]))
-    router.push('/')
+    setAviso("Compra exitosa")
+    setTimeout(() => {
+      router.push('/')
+      setAviso("")
+    }, 2000)
   }
 
   return (
@@ -48,7 +53,10 @@ const CompraPage = () => {
       <section className='py-10'> 
         <div className='w-[98%] md:w-2/3 mx-auto p-10 bg-contenedor rounded-xl shadow-md'>
           <div>
-            <h1 className='text-3xl font-bold'>{destino}</h1>
+            <div>
+              <h1 className='text-3xl font-bold'>{destino}</h1>
+              {aviso && <p className='text-secondary text-3xl font-bold'>{aviso}</p>}
+            </div>
             <div className='md:w-1/3 mt-10'>
               <div className='mt-3 flex justify-between items-center'>
                 <p className='font-bold text-lg'>Fecha</p>

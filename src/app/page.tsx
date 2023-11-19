@@ -23,8 +23,8 @@ interface viaje {
 
 const HomePage = () => {
 
-  const {datos, paseosComprados} = useContext(ManejoContext)
-  
+  const {datos} = useContext(ManejoContext)
+
   return (
     <Layout>
       <>

@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { ManejoContext } from '@/context/manejoContext'
 import Layout from '@/components/Layout'
 import Image from 'next/image'
+import { useState } from 'react'
 import reeturn_icon from '../../../public/return.svg'
 import { useRouter } from 'next/navigation'
 
@@ -21,6 +22,17 @@ const DetallesPage = () => {
     puestos_disponibles,
     placa_chiva} = informacionViaje
   const router = useRouter()
+  const [aviso, setAviso] = useState("")
+
+  const handleReservar = () => {
+    const datos = {imagen, destino, fecha_viaje, estado: "reservado", id: crypto.randomUUID()}
+    localStorage.setItem('paseosReservados', JSON.stringify([datos, ...JSON.parse(localStorage.getItem('paseosReservados') || '[]')]))
+    setAviso("Reserva exitosa")
+    setTimeout(() => {
+      router.push('/')
+    setAviso("")
+    }, 2000)
+  }
 
   return (
     <Layout>
@@ -73,6 +85,7 @@ const DetallesPage = () => {
               <>
                 <button 
                   className='px-7 py-3 rounded-md font-bold text-xl text-white bg-secondary'
+                  onClick={handleReservar}
                 >Reservar</button>
                 <button 
                   className='px-7 py-3 rounded-md font-bold text-xl text-white bg-primary'
@@ -85,6 +98,7 @@ const DetallesPage = () => {
               >Inicia sesion</button>
             }
           </div>
+          {aviso && <p className='text-secondary text-3xl font-bold text-center mt-10'>{aviso}</p>}
           </div>
         </div>
       </section>
